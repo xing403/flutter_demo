@@ -1,78 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'layouts/custom_bottom_tab_bar.dart';
+import 'views/setting_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+  static final List<Widget> activeWidgetOptions = <Widget>[
+    const Text('首页'),
+    const Text('新增'),
+    const SettingPage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Material(
-        child: Row(children: [
-      SizedBox(
-        width: 48,
-        height: 32,
-        child: Stack(
-          alignment: Alignment.bottomLeft,
-          children: [
-            TDText('消息'),
-            Positioned(
-              right: 0,
-              top: 0,
-              child: TDBadge(
-                TDBadgeType.message,
-                count: '8',
-              ),
-            )
-          ],
+    return MaterialApp(
+      home: Scaffold(
+        appBar: const TDNavBar(
+          height: 48,
+          title: 'flutter demo',
+          titleFontWeight: FontWeight.w600,
+          centerTitle: false, // 标题居中
+          titleMargin: 0,
+          screenAdaptation: true,
+          useDefaultBack: false,
         ),
+        body: activeWidgetOptions.elementAt(_selectedIndex),
+        bottomNavigationBar: CustomBottomTabBar(_onItemTapped),
       ),
-      SizedBox(
-        width: 40,
-      ),
-      SizedBox(
-        width: 34,
-        height: 34,
-        child: Stack(
-          alignment: Alignment.bottomLeft,
-          children: [
-            Icon(TDIcons.notification),
-            Positioned(
-              right: 0,
-              top: 0,
-              child: TDBadge(
-                TDBadgeType.message,
-                count: '8',
-              ),
-            )
-          ],
-        ),
-      ),
-      SizedBox(
-        width: 40,
-      ),
-      SizedBox(
-        width: 86,
-        height: 54,
-        child: Stack(
-          alignment: Alignment.bottomLeft,
-          children: [
-            TDButton(
-              width: 80,
-              height: 48,
-              text: '按钮',
-              size: TDButtonSize.large,
-            ),
-            Positioned(
-              right: 0,
-              top: 0,
-              child: TDBadge(
-                TDBadgeType.message,
-                count: '8',
-              ),
-            )
-          ],
-        ),
-      ),
-    ]));
+    );
   }
 }

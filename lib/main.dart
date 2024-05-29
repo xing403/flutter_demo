@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'pages/home_page.dart';
 
 void main() {
@@ -14,18 +13,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo', // 应用标题
-      home: Scaffold(
-        appBar: TDNavBar(
-          height: 48,
-          title: 'flutter demo',
-          titleFontWeight: FontWeight.w600,
-          centerTitle: false, // 标题居中
-          titleMargin: 0,
-          screenAdaptation: true,
-          useDefaultBack: false,
-        ),
-        body: SafeArea(child: HomePage()),
-      ),
+      home: HomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
